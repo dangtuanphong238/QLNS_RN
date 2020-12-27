@@ -17,10 +17,16 @@ export default class AddRoom extends Component {
     const ref = database().ref('QuanLyNhanSu/PhongBan/').push();
     ref
       .set({
+        id:ref.key,
         tenphong: this.state.tenPhong,
         soluongnguoi: this.state.soLuongNguoi,
       })
-      .then(() => console.log('Data seted'));
+      .then(() => {
+        alert("Thêm phòng thành công")
+      })
+      .then(()=>{
+        this.props.navigation.navigate("ListRoom")
+      });
   }
 
   render() {

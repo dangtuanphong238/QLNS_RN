@@ -5,13 +5,13 @@ import Splash from '../screens/Splash/Splash';
 import SignIn from '../screens/Auth/SignIn';
 import SignUp from '../screens/Auth/SignUp';
 
-// import ListRoom from '../screens/Room/ListRoom';
-// import AddRoom from '../screens/Room/AddRoom';
-// import UpdateRoom from '../screens/Room/UpdateRoom'
+import AddRoom from '../screens/Room/AddRoom';
+import UpdateRoom from '../screens/Room/UpdateRoom'
 
+import AddStaff from "../screens/Staff/AddStaff";
+import UpdateStaff from '../screens/Staff/UpdateStaff'
 
 import BottomTabNav from '../navigations/BottomTabNav';
-// import AddStaff from "../screens/Staff/AddStaff";
 const Stack = createStackNavigator();
 
 export default class AppNavigation extends Component {
@@ -21,16 +21,17 @@ export default class AppNavigation extends Component {
         {/* <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={!this.state.token ? 'SplashScreen' : 'SignInScreen'}> */}
         <Stack.Navigator
           screenOptions={{headerShown: false}}
-          initialRouteName={'Splash'}>
+          initialRouteName={'BottomTabNav'}>
           <Stack.Screen name="Splash" component={Splash} />
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
-          {/* <Stack.Screen name="ListRoom" component={ListRoom} />
           <Stack.Screen name="AddRoom" component={AddRoom} />
-          <Stack.Screen name="UpdateRoom" component={UpdateRoom}/> */} 
+          <Stack.Screen name="UpdateRoom" component={UpdateRoom}/>
+          <Stack.Screen name="AddStaff" component={AddStaff}/>
+          <Stack.Screen name="UpdateStaff" component={UpdateStaff}/>
+
           <Stack.Screen name="BottomTabNav" component={BottomTabNav}/>
-          {/* <Stack.Screen name="AddStaff" component={AddStaff}/> */}
-   
+
         </Stack.Navigator>
       </NavigationContainer>
     );
