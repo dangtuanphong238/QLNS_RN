@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "846941356884",
+    "project_id": "qlns-rn",
+    "storage_bucket": "qlns-rn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846941356884:android:e22b4cc8f5baa3b33dfec1",
+        "android_client_info": {
+          "package_name": "com.quanlynhansu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846941356884-tmbii2hr6sfg265i7cv3if6f1c4an4tr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.quanlynhansu",
+            "certificate_hash": "f0c96b365690fa0c95b7e63e49c989808003d5ed"
+          }
+        },
+        {
+          "client_id": "846941356884-oqjosvpfbv87qampi0chjllt15t8j3is.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3DOmEiKZn7_YY0626kvzDeTSyYr2XdVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846941356884-oqjosvpfbv87qampi0chjllt15t8j3is.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
