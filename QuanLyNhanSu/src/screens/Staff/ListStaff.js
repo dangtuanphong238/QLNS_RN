@@ -36,7 +36,7 @@ class ListStaff extends Component {
         }}
         onPress={() =>
           this.props.navigation.navigate('UpdateStaff', {
-            room: this.state.DATA[index],
+            staff: this.state.DATA[index],
           })
         }>
         <View style={{flexDirection: 'row'}}>
