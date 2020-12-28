@@ -15,6 +15,8 @@ import database from '@react-native-firebase/database';
 // import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import DropDownPicker from 'react-native-dropdown-picker';
+// import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'react-native-image-picker';
 
 export default class AddStaff extends Component {
   constructor(props) {
@@ -28,23 +30,47 @@ export default class AddStaff extends Component {
       quequan: '',
       chucvu: '',
       photo: '',
+      phongban: '',
     };
   }
 
-  handleChoosePhoto = () => {
-    // ImagePicker.openPicker({
-    //   width: 300,
-    //   height: 400,
-    //   cropping: false,
-    // }).then((image) => {
-    //     this.setState({photo: image.path})
-    //   console.log(image.path);
-    // });
+  selectFile = () => {
+    var options = {
+      title: 'Select Image',
+      customButtons: [
+        {
+          name: 'customOptionKey',
+          title: 'Choose file from Custom Option',
+        },
+      ],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    ImagePicker.launchImageLibrary(options, (res) => {
+      console.log('Response = ', res);
+     
+      if (res.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (res.error) {
+        console.log('ImagePicker Error: ', res.error);
+      } else if (res.customButton) {
+        console.log('User tapped custom button: ', res.customButton);
+        alert(res.customButton);
+      } else {
+        let source = res;
+        this.setState({
+          photo: source.uri,
+        });
+      }
+    });
   };
 
   uploadImage = async () => {
     const task = storage()
-      .ref(`/ImageFood/${this.state.tennv}/`)
+      .ref(`/ImageNhanVien/${this.state.tennv}/`)
       .putFile(this.state.photo);
     task.on('state_changed', (snapshot) => {
       console.log('snapshot: ' + snapshot);
@@ -56,13 +82,13 @@ export default class AddStaff extends Component {
     }
     this.setState({
       photo: (
-        await storage().ref(`/ImageFood/${this.state.tennv}`).getDownloadURL()
+        await storage().ref(`/ImageNhanVien/${this.state.tennv}`).getDownloadURL()
       ).toString(),
     });
   };
 
   ThemNhanVien = async () => {
-    const {tennv, ngaysinh, sdt, cmnd, quequan, chucvu, photo} = this.state;
+    const {tennv, ngaysinh, sdt, cmnd, quequan, chucvu, photo,phongban} = this.state;
 
     if (
       tennv != '' &&
@@ -71,19 +97,22 @@ export default class AddStaff extends Component {
       cmnd != '' &&
       quequan != '' &&
       chucvu != '' &&
-      photo != ''
+      photo != '' &&
+      phongban != ''
     ) {
       await this.uploadImage();
 
-      const ref = database().ref(`QuanLyNhanSu/NhanVien/${tennv}`);
+      const ref = await database().ref('QuanLyNhanSu/NhanVien/').push();
       ref
         .set({
+          id: ref.key,
           tennv: this.state.tennv,
           ngaysinh: this.state.ngaysinh,
           sdt: this.state.sdt,
           cmnd: this.state.cmnd,
           quequan: this.state.quequan,
           chucvu: this.state.chucvu,
+          phongban: this.state.phongban,
           photo: this.state.photo,
         })
         .then(() => alert('Success'));
@@ -162,7 +191,7 @@ export default class AddStaff extends Component {
         <View>
           {/* Here */}
 
-          <DropDownPicker
+          {/* <DropDownPicker
             items={[
               {
                 label: 'USA',
@@ -186,16 +215,20 @@ export default class AddStaff extends Component {
             }}
             dropDownStyle={{backgroundColor: '#fafafa', justifyContent:'center'}}
             onChangeItem={(item) => console.log(item)}
+          /> */}
+
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(text) => this.setState({phongban: text})}
           />
         </View>
-
 
         <View style={{flexDirection: 'row'}}>
           <View style={styles.view1}>
             <Text style={styles.fontWeightTitle}> Chọn hình : </Text>
           </View>
           <View style={styles.view3}>
-            <TouchableOpacity onPress={this.handleChoosePhoto}>
+            <TouchableOpacity onPress={this.selectFile}>
               <Image source={require('../../assets/camera.png')} />
             </TouchableOpacity>
           </View>
@@ -300,6 +333,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'#99ffff',
+    backgroundColor: '#99ffff',
   },
 });
